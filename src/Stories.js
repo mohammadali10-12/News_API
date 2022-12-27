@@ -1,27 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import {useCustomHook  } from "./Context";
 
 const Stories = () => {
 
-  let isLoading = true;
-
-  let Api = 'http://hn.algolia.com/api/v1/search?query='
-
-  const FetchApi = async (url) => {
-
-    try {
-      const resp = await fetch(url)
-      const data = await resp.json();
-      console.log(data);
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-
-  useEffect(() => {
-    FetchApi(Api);
-  }, []);
+const {hits,nbPages,isLoading} = useCustomHook();
 
   if (isLoading) {
     return (
@@ -33,12 +15,13 @@ const Stories = () => {
 
   return (
     <>
-      {/* {hits.map((curPost) => {
+      {hits.map((curPost,k) => {
         return<>
         <h2>{curPost.title}</h2>
+        {curPost.author}
         </>
         
-      })} */}
+      })};
 
     </>
   )
