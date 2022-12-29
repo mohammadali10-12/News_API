@@ -1,9 +1,9 @@
 import React from 'react'
-import {useCustomHook  } from "./Context";
+import { useCustomHook } from "./Context";
 
 const Stories = () => {
 
-const {hits,nbPages,isLoading} = useCustomHook();
+  const { hits, nbPages, isLoading } = useCustomHook();
 
   if (isLoading) {
     return (
@@ -15,14 +15,28 @@ const {hits,nbPages,isLoading} = useCustomHook();
 
   return (
     <>
-      {hits.map((curPost,k) => {
-        return<>
-        <h2>{curPost.title}</h2>
-        {curPost.author}
-        </>
-        
-      })};
+      <div className='stories-div'>
+        {hits.map((curPost) => {
 
+          const { title, author, objectID, url, num_comments } = curPost
+
+          return <>
+            <div className='card' key={objectID}>
+              <h2>{title}</h2>
+              <p>
+                By {author} | <span>{num_comments}</span>
+              </p>
+              <div className='card-button'>
+                <a href={url}>
+                  Read More
+                </a>
+                <a href='#'>Remove</a>
+              </div>
+            </div>
+          </>
+
+        })};
+      </div>
     </>
   )
 }
